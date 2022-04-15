@@ -15,7 +15,6 @@ const Sidebaroptions=({Icon, title, addChannelOptions,id})=> {
 
         if(channelName)
         {
-
             db.collection('rooms').add({
                 name:channelName
             })
@@ -32,8 +31,9 @@ const Sidebaroptions=({Icon, title, addChannelOptions,id})=> {
             dispatch(enterRoom({
                 roomId: id,
             }))
-            
+             
         }
+    
        
     };
 

@@ -7,42 +7,53 @@ import firebase from 'firebase/compat/app';
 
 function ChatInput({channelName, channelId,chatRef}) {
    
-
+  
     const [input, setInput]=useState('');
+    // useEffect(()=>{
 
-    const sendMessage=e=>
+    // },[channelId])
+
+    const sendMessage=(e)=>
     {
+        
         e.preventDefault(); //Prevents refresh
-
         if(!channelId)
         {
+            console.log(channelId);
             return false;
         }
+
+        console.log(channelId);
+
 
         db.collection('rooms').doc(channelId).collection("messages").add({
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             user: 'Akash Musky',
-            userImage: "null"
+            userImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjhgktV16gaea7t50qLyBPiciIYKe8xpakTc495iXDGw&s'
         })
 
+       
+  
          chatRef.current.scrollIntoView({
              behavior: "smooth",
          })
 
         setInput('');
     }
-  return <ChatInputContainer>
+  return (
+  <ChatInputContainer>
       <form>
           <input
            value={input}
            onChange={(e)=>setInput(e.target.value)}
            placeholder={`Message #${channelName}`}/>
-          <button hidden type='submit' onClick={sendMessage}>
-              SEND
+          <button  hidden  type='submit' onClick={sendMessage}>
+              <h1>Send Message Musky</h1>
           </button>
       </form>
   </ChatInputContainer>
+  )
 }
 
 export default ChatInput

@@ -25,10 +25,11 @@ import {db} from "../firebase";
 function Sidebar() {
 
     const [channels, loading, error]=useCollection(db.collection("rooms"));
-    console.log(channels);
+    
   return (
 
     <SidebarContainer>
+
         <SidebarHeader>
                <SidebarInfo>
                    <h2>TECH PYCHAT</h2>

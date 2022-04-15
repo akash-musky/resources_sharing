@@ -13,8 +13,7 @@ import { useDocument } from 'react-firebase-hooks/firestore'
 import { db } from '../firebase'
 import { useCollection } from 'react-firebase-hooks/firestore';
 
-function Chat() {
-    
+function  Chat(){
     const chatRef= useRef(null)
     const roomId=useSelector(selectRoomId)
     const [roomDetails]=useDocument(
@@ -29,6 +28,8 @@ function Chat() {
     )
 
   useEffect(()=>{
+
+ 
    chatRef?.current?.scrollIntoView();
 
   }, [roomId, loading])
@@ -56,7 +57,10 @@ function Chat() {
 
                 return (
                     <Message
-                       
+                     message={message}
+                     timestamp={timestamp}
+                     user={user}
+                     userImage={userImage}
                     />
                 )
 
@@ -66,11 +70,17 @@ function Chat() {
       ref={chatRef}
       />
       </ChatMessages>
-
-      <ChatInput
-       chatRef={chatRef}
+       
+      {/* <ChatInput
+        chatRef={chatRef}
         channelName={roomDetails?.data().name}
         channleId={roomId}
+      /> */}
+
+      <ChatInput
+        chatRef={chatRef}
+        channelName={roomDetails?.data().name}
+        channelId={roomId}
       />
   </ChatContainer>
 }

@@ -34,5 +34,5 @@ export default App;
 
 const AppBody=styled.div`
 display: flex;
-height: auto;
+max-height: auto;
 `
