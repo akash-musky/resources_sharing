@@ -20,11 +20,14 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import AddIcon from "@material-ui/icons/Add"
 
 import {useCollection} from "react-firebase-hooks/firestore";
-import {db} from "../firebase";
+import {db,auth} from "../firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 
 function Sidebar() {
 
-    const [channels, loading, error]=useCollection(db.collection("rooms"));
+    const [channels]=useCollection(db.collection("rooms"));
+    const [user]=useAuthState(auth)
     
   return (
 
@@ -32,10 +35,10 @@ function Sidebar() {
 
         <SidebarHeader>
                <SidebarInfo>
-                   <h2>TECH PYCHAT</h2>
+                   <h2>Tech pyChat</h2>
                    <h3>
                        <FiberManualRecordIcon/>
-                        Akash Musky
+                        {user.displayName}
                    </h3>
                </SidebarInfo>
 
@@ -79,6 +82,7 @@ flex: 0.3;
 border-top: 1px solid #49274b;
 max-width: 260px;
 margin-top: 60px;
+overflow-y: scroll;
 
 > hr{
     margin-top: 10px;
