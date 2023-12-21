@@ -19,63 +19,63 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import AddIcon from "@material-ui/icons/Add"
 
-import {useCollection} from "react-firebase-hooks/firestore";
-import {db,auth} from "../firebase";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { db, auth } from "../firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 function Sidebar() {
 
-    const [channels]=useCollection(db.collection("rooms"));
-    const [user]=useAuthState(auth)
-    
-  return (
+    const [channels] = useCollection(db.collection("rooms"));
+    const [user] = useAuthState(auth)
 
-    <SidebarContainer>
+    return (
 
-        <SidebarHeader>
-               <SidebarInfo>
-                   <h2>Tech pyChat</h2>
-                   <h3>
-                       <FiberManualRecordIcon/>
+        <SidebarContainer>
+
+            <SidebarHeader>
+                <SidebarInfo>
+                    <h2>Tech pyChat</h2>
+                    <h3>
+                        <FiberManualRecordIcon />
                         {user.displayName}
-                   </h3>
-               </SidebarInfo>
+                    </h3>
+                </SidebarInfo>
 
-               <CreateIcon/>
-        </SidebarHeader>
+                <CreateIcon />
+            </SidebarHeader>
 
-        <Sidebaroptions Icon={InsertCommentIcon} title="Threads"/>
-        <Sidebaroptions Icon={InboxIcon} title="Mentions & reactions"/>
-        <Sidebaroptions Icon={DraftsIcon} title="Saved items"/>
-        <Sidebaroptions Icon={BookmarkBorderIcon} title="Channgel browser"/>
-        <Sidebaroptions Icon={PeopleAltIcon} title="People & user groups"/>
-        <Sidebaroptions Icon={AppsIcon} title="Apps"/>
-        <Sidebaroptions Icon={FileCopyIcon} title="File browser"/>
-        <Sidebaroptions Icon={ExpandLessIcon} title="Show less"/>
-        <hr/>
-        <Sidebaroptions Icon={ExpandMoreIcon} title="Channels"/>
-        <hr/>
+            <Sidebaroptions Icon={InsertCommentIcon} title="Threads" />
+            <Sidebaroptions Icon={InboxIcon} title="Mentions & reactions" />
+            <Sidebaroptions Icon={DraftsIcon} title="Saved items" />
+            <Sidebaroptions Icon={BookmarkBorderIcon} title="Channgel browser" />
+            <Sidebaroptions Icon={PeopleAltIcon} title="People & user groups" />
+            <Sidebaroptions Icon={AppsIcon} title="Apps" />
+            <Sidebaroptions Icon={FileCopyIcon} title="File browser" />
+            <Sidebaroptions Icon={ExpandLessIcon} title="Show less" />
+            <hr />
+            <Sidebaroptions Icon={ExpandMoreIcon} title="Channels" />
+            <hr />
 
-        <Sidebaroptions Icon={AddIcon} addChannelOptions title="Add Channel"/>
+            <Sidebaroptions Icon={AddIcon} addChannelOptions title="Add Channel" />
 
-        {
-            channels?.docs.map((doc)=>(
-                <Sidebaroptions 
-                key={doc.id}
-                id={doc.id}
-                title={doc.data().name}
-                />
-            ))
-        }
-    </SidebarContainer>
-    
-  )
+            {
+                channels?.docs.map((doc) => (
+                    <Sidebaroptions
+                        key={doc.id}
+                        id={doc.id}
+                        title={doc.data().name}
+                    />
+                ))
+            }
+        </SidebarContainer>
+
+    )
 }
 
 export default Sidebar
 
-const SidebarContainer=styled.div`
+const SidebarContainer = styled.div`
 color: white;
 background-color: var(--pychat-color);
 flex: 0.3;
@@ -91,7 +91,7 @@ overflow-y: scroll;
 }
 
 `
-const SidebarHeader=styled.div`
+const SidebarHeader = styled.div`
 display: flex;
 border-bottom: 1px solid #492744;
 padding: 13px;
@@ -104,7 +104,7 @@ padding: 13px;
     border-radius: 999px;
 }
 `
-const SidebarInfo=styled.div`
+const SidebarInfo = styled.div`
 flex: 1;
 
 >h2 {

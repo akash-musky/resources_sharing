@@ -1,68 +1,50 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import {db} from "../firebase"
+import { db } from "../firebase"
 import firebase from 'firebase/compat/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import {auth} from "../firebase"
+import { auth } from "../firebase"
 
-
-
-function ChatInput({channelName, channelId,chatRef}) {
-   
-  
-    const [input, setInput]=useState('');
-    const[user]=useAuthState(auth);
-    // useEffect(()=>{
-
-    // },[channelId])
-
-    const sendMessage=(e)=>
-    {
-        
+function ChatInput({ channelName, channelId, chatRef }) {
+    const [input, setInput] = useState('');
+    const [user] = useAuthState(auth);
+    const sendMessage = (e) => {
         e.preventDefault(); //Prevents refresh
-        if(!channelId)
-        {
+        if (!channelId) {
             console.log(channelId);
             return false;
         }
-
-        console.log(channelId);
-
-
         db.collection('rooms').doc(channelId).collection("messages").add({
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             user: user.displayName,
             userImage: user.photoURL
         })
-
-       
-  
-         chatRef.current.scrollIntoView({
-             behavior: "smooth",
-         })
+        chatRef.current.scrollIntoView({
+            behavior: "smooth",
+        })
 
         setInput('');
     }
-  return (
-  <ChatInputContainer>
-      <form>
-          <input
-           value={input}
-           onChange={(e)=>setInput(e.target.value)}
-           placeholder={`Message #${channelName}`}/>
-          <button  hidden  type='submit' onClick={sendMessage}>
-              <h1>Send Message Musky</h1>
-          </button>
-      </form>
-  </ChatInputContainer>
-  )
+    return (
+        <ChatInputContainer>
+            <form>
+                <input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder={`Message #${channelName}`} />
+                <button hidden type='submit' onClick={sendMessage}>
+                    <h1>Send Message Musky</h1>
+                </button>
+            </form>
+        </ChatInputContainer>
+    )
 }
 
 export default ChatInput
 
 
-const ChatInputContainer=styled.div`
+const ChatInputContainer = styled.div`
  border-radius: 20px;
 
  >form {
